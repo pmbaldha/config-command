@@ -331,7 +331,10 @@ class Config_Command extends WP_CLI_Command {
 		}
 
 		if ( empty( $values ) ) {
-			WP_CLI::error( "No matching entries found in 'wp-config.php'." );
+			$wp_config_file = isset( $assoc_args['config-file'] )
+							? basename( $assoc_args['config-file'] )
+							: 'wp-config.php';
+			WP_CLI::error( "No matching entries found in '{$wp_config_file}'." );
 		}
 
 		Utils\format_items( $assoc_args['format'], $values, $assoc_args['fields'] );
